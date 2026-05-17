@@ -103,19 +103,32 @@ const Header = () => {
             Contact
           </Link>
 
-          {/* {isLoggedIn && (
-            <>
-              <Link to="/doctors" className="block py-2" onClick={() => setMenuOpen(false)}>
-                Doctors
-              </Link>
-              <Link to="/patients" className="block py-2" onClick={() => setMenuOpen(false)}>
-                Patients
-              </Link>
-              <Link to="/appointments" className="block py-2" onClick={() => setMenuOpen(false)}>
-                Appointments
-              </Link>
-            </>
-          )} */}
+             {role === "admin" && (
+        <Link
+          to="/AdminDoctorManagement"
+          className="px-1 pt-1 text-sm text-gray-600 hover:text-blue-600"
+        >
+          Admin Dashboard
+        </Link>
+      )}
+
+      {role === "doctor" && (
+        <Link
+          to="/doctors"
+          className="px-1 pt-1 text-sm text-gray-600 hover:text-blue-600"
+        >
+          Doctors
+        </Link>
+      )}
+
+      {role === "patient" && (
+        <Link
+          to="/patients"
+          className="px-1 pt-1 text-sm text-gray-600 hover:text-blue-600"
+        >
+          Patients
+        </Link>
+      )}
 
           {/* Auth Mobile */}
           {!isLoggedIn ? (
@@ -129,8 +142,9 @@ const Header = () => {
             </>
           ) : (
             <button
+            
               onClick={() => {
-                setIsLoggedIn(false);
+                logout();
                 setMenuOpen(false);
               }}
               className="w-full bg-red-500 text-white py-2 rounded"
