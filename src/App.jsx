@@ -12,6 +12,7 @@ import SignInPage from "./Pages/SingInPage";
 import SignUpPage from "./Pages/SingUpPage";
 import Dashboard from "./Pages/Dashboard";
 import { AuthProvider, useAuth } from "./context/AuthContext";
+import UnAuthenticatedRoute from "./Components/UnAuthenticatedRoute";
 
 
 function App() {
@@ -27,8 +28,23 @@ function App() {
         <Route path="/Doctors" element={<DoctorsPage />} />
         <Route path="/Patients" element={<PatientsPage />} />
 
-        <Route path="/signin" element={<SignInPage />} />
-        <Route path="/signup" element={<SignUpPage />} />
+        {/* <Route path="/signin" element={<SignInPage />} />
+        <Route path="/signup" element={<SignUpPage />} /> */}
+        {/* un authenticated routes */}
+         <Route path='/signin'
+              element={
+                <UnAuthenticatedRoute>
+                  <SignInPage />
+                </UnAuthenticatedRoute>
+              } />
+
+            <Route path='/signup'
+              element={
+                <UnAuthenticatedRoute>
+                  <SignUpPage />
+                </UnAuthenticatedRoute>
+              }
+            />
 
         <Route
           path="/dashboard"

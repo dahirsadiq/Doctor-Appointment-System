@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router";
 import { FaBars, FaTimes } from "react-icons/fa";
+import { useAuth } from "../context/AuthContext";
 
 const Header = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const [menuOpen, setMenuOpen] = useState(false);
+  //const [isLoggedIn, setIsLoggedIn] = useState(true);
+   const [menuOpen, setMenuOpen] = useState(false);
+  const { isLoggedIn, profile, logout } = useAuth()
+
 
   return (
     <header className="bg-white shadow">
@@ -57,10 +60,10 @@ const Header = () => {
               </>
             ) : (
               <button
-                onClick={() => setIsLoggedIn(false)}
+                onClick={() => logout()}
                 className="bg-red-500 text-white px-4 py-1.5 rounded-lg text-sm"
               >
-                Logout
+                Signout
               </button>
             )}
           </div>

@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { fetchProfile, onAuthChange, signOut } from "../lib/auth";
+import { PiSignOutLight } from "react-icons/pi";
  
  
 const AuthContext = createContext(null);
@@ -9,7 +10,8 @@ export function AuthProvider({ children }) {
 
     const [user, setUser] = useState(null);
     const [profile, setProfile] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(true); 
+    const [isLoggedIn, setIsLoggedIn] = useState(true);
 
 
     useEffect(() => {
@@ -39,7 +41,7 @@ export function AuthProvider({ children }) {
 
 
 
-    const logout = async () => {
+     const logout = async () => {
         try {
             await signOut()
         } catch (error) {
@@ -53,7 +55,7 @@ export function AuthProvider({ children }) {
         user,
         profile,
         isLoading,
-        // isLoggedIn: !!user,
+        isLoggedIn: !!user,
         logout
     }
 
