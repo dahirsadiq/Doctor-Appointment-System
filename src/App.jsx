@@ -17,6 +17,7 @@ import DoctorDashboard from "./Pages/DoctorDashboard";
 import PatientDashboard from "./Pages/PatientDashboard";
 import AdminDashboard from "./Pages/AdminDoctorManagement";
 import ProtectedRoute from "./Components/ProtectedRoute";
+import ContactPage from "./Pages/ContactPage";
 
 
 function App() {
@@ -25,10 +26,12 @@ function App() {
 
   return (
       <AuthProvider>
+        
          <Header />
-
-      <Routes>
+         <main>
+          <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="Contact" element={<ContactPage />} />
         <Route path="/Doctors" element={ <ProtectedRoute>
                   <DoctorDashboard />
                 </ProtectedRoute>} />
@@ -66,6 +69,9 @@ function App() {
           }
         />
       </Routes>
+         </main>
+
+      
 
       <Footer />
       </AuthProvider>
