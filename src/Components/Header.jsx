@@ -6,7 +6,8 @@ import { useAuth } from "../context/AuthContext";
 const Header = () => {
   //const [isLoggedIn, setIsLoggedIn] = useState(true);
    const [menuOpen, setMenuOpen] = useState(false);
-  const { isLoggedIn, profile, logout } = useAuth()
+  const { isLoggedIn, profile, user ,logout } = useAuth();
+  const role = profile?.role;
 
 
   return (
@@ -31,19 +32,32 @@ const Header = () => {
                 Contact
               </Link>
 
-              {isLoggedIn && (
-                <>
-                  <Link to="/doctors" className="px-1 pt-1 text-sm text-gray-600 hover:text-blue-600">
-                    Doctors
-                  </Link>
-                  <Link to="/patients" className="px-1 pt-1 text-sm text-gray-600 hover:text-blue-600">
-                    Patients
-                  </Link>
-                  <Link to="/AdminDoctorManagement" className="px-1 pt-1 text-sm text-gray-600 hover:text-blue-600">
-                    Admin Dashboard
-                  </Link>
-                </>
-              )}
+          {role === "admin" && (
+        <Link
+          to="/AdminDoctorManagement"
+          className="px-1 pt-1 text-sm text-gray-600 hover:text-blue-600"
+        >
+          Admin Dashboard
+        </Link>
+      )}
+
+      {role === "doctor" && (
+        <Link
+          to="/doctors"
+          className="px-1 pt-1 text-sm text-gray-600 hover:text-blue-600"
+        >
+          Doctors
+        </Link>
+      )}
+
+      {role === "patient" && (
+        <Link
+          to="/patients"
+          className="px-1 pt-1 text-sm text-gray-600 hover:text-blue-600"
+        >
+          Patients
+        </Link>
+      )}
             </nav>
           </div>
 
