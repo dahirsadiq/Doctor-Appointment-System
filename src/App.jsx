@@ -11,73 +11,16 @@ import SignInPage from "./Pages/SingInPage";
 
 import SignUpPage from "./Pages/SingUpPage";
 import Dashboard from "./Pages/Dashboard";
+import { AuthProvider, useAuth } from "./context/AuthContext";
+
 
 function App() {
   const navigate = useNavigate();
-
-  const [user, setUser] = useState(null);
-  const [profile, setProfile] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  // ✅ FETCH PROFILE
-  const fetchProfile = async (userId) => {
-    const { data, error } = await supabase
-      .from("profiles")
-      .select("*")
-      .eq("id", userId)
-      .maybeSingle();
-
-    if (error) {
-      console.error("Profile error:", error);
-      return null;
-    }
-
-    return data;
-  };
-
-  useEffect(() => {
-    const init = async () => {
-      setLoading(true);
-
-      // 1️⃣ restore session
-      const { data: sessionData } = await supabase.auth.getSession();
-      const sessionUser = sessionData?.session?.user;
-
-      if (!sessionUser) {
-        setLoading(false);
-        return;
-      }
-
-      setUser(sessionUser);
-
-      // 2️⃣ get profile
-      const profileData = await fetchProfile(sessionUser.id);
-      setProfile(profileData);
-
-      // 3️⃣ routing logic
-      if (profileData?.role === "doctor") {
-        if (profileData.status !== "approved") {
-          navigate("/signin"); // blocked doctor
-        } else {
-          navigate("/dashboard");
-        }
-      } else {
-        navigate("/dashboard");
-      }
-
-      setLoading(false);
-    };
-
-    init();
-  }, []);
-
-  if (loading) {
-    return <div className="p-10 text-center">Loading...</div>;
-  }
+  const {profile , user}=useAuth();
 
   return (
-    <>
-      <Header />
+      <AuthProvider>
+         <Header />
 
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -100,7 +43,8 @@ function App() {
       </Routes>
 
       <Footer />
-    </>
+      </AuthProvider>
+  
   );
 }
 

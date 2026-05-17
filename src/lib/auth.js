@@ -56,3 +56,35 @@ export async function signIn(email, password) {
 
   return data.user;
 };
+  // ✅ FETCH PROFILE
+  export async function fetchProfile(userId) {
+    const { data, error } = await supabase
+      .from("profiles")
+      .select("*")
+      .eq("id", userId)
+      .maybeSingle();
+
+    if (error) {
+      console.error("Profile error:", error);
+      return null;
+    }
+
+    return data;
+  };
+
+export function onAuthChange(callback){
+
+    const { data } = supabase.auth.onAuthStateChange((event, session) => {
+            callback(session?.user || null, event)
+    })
+
+    return () => data.subscription.unsubscribe();
+}
+
+/**
+ * Sign out the current user
+ */
+export async function signOut() {
+    await supabase.auth.signOut()
+  }
+  

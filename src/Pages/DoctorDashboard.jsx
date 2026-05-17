@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react";
 import supabase from "../lib/supabase";
+import { useAuth } from "../context/AuthContext";
 
 const DoctorDashboard = () => {
   const [appointments, setAppointments] = useState([]);
+  const {user}=useAuth();
 
   // ================= GET USER =================
-  const getUser = async () => {
-    const { data } = await supabase.auth.getUser();
-    return data?.user;
-  };
+  // const getUser = async () => {
+  //   const { data } = await supabase.auth.getUser();
+  //   return data?.user;
+  // };
 
   // ================= FETCH APPOINTMENTS =================
   const getAllAppointments = async () => {
-    const user = await getUser();
+    // const user = await getUser();
     if (!user) return;
 
     const { data, error } = await supabase

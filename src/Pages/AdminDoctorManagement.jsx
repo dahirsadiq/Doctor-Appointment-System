@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import supabase from "../lib/supabase";
+import { useAuth } from "../context/AuthContext";
 
 const AdminDashboard = () => {
+  const {user}=useAuth();
   const [tab, setTab] = useState("doctors");
 
   const [doctors, setDoctors] = useState([]);
@@ -23,17 +25,10 @@ const AdminDashboard = () => {
   }
 };
 
-  // ================= FETCH PATIENTS =================
-  const fetchPatients = async () => {
-    const { data, error } = await supabase.from("patients").select("*");
-    if (error) console.error(error);
-    else setPatients(data || []);
-  };
+
 
  const getAllAppointments = async () => {
-  const { data: userData } = await supabase.auth.getUser();
-  const user = userData?.user;
-  console.log(user);
+  
 
   if (!user) return;
 
@@ -69,7 +64,7 @@ const AdminDashboard = () => {
 };
   useEffect(() => {
     fetchDoctors();
-    fetchPatients();
+    
     getAllAppointments();
   }, []);
 
@@ -118,14 +113,7 @@ const AdminDashboard = () => {
           Doctors
         </button>
 
-        <button
-          onClick={() => setTab("patients")}
-          className={`px-4 py-2 rounded ${
-            tab === "patients" ? "bg-blue-600 text-white" : "bg-white"
-          }`}
-        >
-          Patients
-        </button>
+       
 
         <button
           onClick={() => setTab("appointments")}
@@ -178,14 +166,7 @@ const AdminDashboard = () => {
             
           
 
-            {/* SIGNUP DATE */}
-            {/* <td className="p-2">
-              {doc.created_at
-                ? new Date(doc.created_at).toLocaleDateString()
-                : "-"}
-            </td> */}
-
-            {/* STATUS */}
+         
             <td className="p-2">
               <span
                 className={
@@ -226,19 +207,7 @@ const AdminDashboard = () => {
   </div>
 )}
 
-      {/* ================= PATIENTS ================= */}
-      {tab === "patients" && (
-        <div className="grid md:grid-cols-3 gap-4">
-
-          {patients.map((p) => (
-            <div key={p.id} className="bg-white p-4 rounded shadow">
-              <h4 className="font-bold">{p.name}</h4>
-              <p>{p.email}</p>
-            </div>
-          ))}
-
-        </div>
-      )}
+    
 
       {/* ================= APPOINTMENTS ================= */}
     {tab === "appointments" && (
