@@ -16,6 +16,7 @@ import UnAuthenticatedRoute from "./Components/UnAuthenticatedRoute";
 import DoctorDashboard from "./Pages/DoctorDashboard";
 import PatientDashboard from "./Pages/PatientDashboard";
 import AdminDashboard from "./Pages/AdminDoctorManagement";
+import ProtectedRoute from "./Components/ProtectedRoute";
 
 
 function App() {
@@ -28,9 +29,15 @@ function App() {
 
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/Doctors" element={<DoctorDashboard/>} />
-        <Route path="/Patients" element={<PatientDashboard/>} />
-            <Route path="/AdminDoctorManagement" element={<AdminDashboard/>} />
+        <Route path="/Doctors" element={ <ProtectedRoute>
+                  <DoctorDashboard />
+                </ProtectedRoute>} />
+        <Route path="/Patients" element={ <ProtectedRoute>
+                  <PatientDashboard />
+                </ProtectedRoute>} />
+            <Route path="/AdminDoctorManagement" element={ <ProtectedRoute>
+                  <AdminDashboard />
+                </ProtectedRoute>} />
       
         {/* un authenticated routes */}
          <Route path='/signin'
