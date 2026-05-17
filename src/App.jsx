@@ -13,6 +13,9 @@ import SignUpPage from "./Pages/SingUpPage";
 import Dashboard from "./Pages/Dashboard";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import UnAuthenticatedRoute from "./Components/UnAuthenticatedRoute";
+import DoctorDashboard from "./Pages/DoctorDashboard";
+import PatientDashboard from "./Pages/PatientDashboard";
+import AdminDashboard from "./Pages/AdminDoctorManagement";
 
 
 function App() {
@@ -25,11 +28,10 @@ function App() {
 
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/Doctors" element={<DoctorsPage />} />
-        <Route path="/Patients" element={<PatientsPage />} />
-
-        {/* <Route path="/signin" element={<SignInPage />} />
-        <Route path="/signup" element={<SignUpPage />} /> */}
+        <Route path="/Doctors" element={<DoctorDashboard/>} />
+        <Route path="/Patients" element={<PatientDashboard/>} />
+            <Route path="/AdminDoctorManagement" element={<AdminDashboard/>} />
+      
         {/* un authenticated routes */}
          <Route path='/signin'
               element={

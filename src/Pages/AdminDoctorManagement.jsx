@@ -7,7 +7,7 @@ const AdminDashboard = () => {
   const [tab, setTab] = useState("doctors");
 
   const [doctors, setDoctors] = useState([]);
-  const [patients, setPatients] = useState([]);
+  // const [patients, setPatients] = useState([]);
   const [appointments, setAppointments] = useState([]);
 
   // ================= FETCH DOCTORS =================
@@ -138,69 +138,65 @@ const AdminDashboard = () => {
           <th className="p-2">UserName</th>
           <th className="p-2">Email </th>
           <th className="p-2">Status</th>
-          {/* <th className="p-2">Actions</th> */}
+          <th className="p-2">Actions</th>
         </tr>
       </thead>
 
       {/* BODY */}
-      <tbody>
-        {doctors.map((doc) => (
-          <tr key={doc.id} className="border-b">
-
-            {/* NAME */}
-            <td className="p-2 font-medium">
-              {doc.username}
-            </td>
-               <td className="p-2 font-medium">
-              {doc.email}
-            </td>
-               <td className="p-2 font-medium">
-              {doc.email}
-            </td>
-            <td className="p-2 font-medium">
-              {doc.status}
-            </td>
-               <td className="p-2 font-medium">
-              {doc.status}
-            </td>
-            
+     <tbody>
+  {doctors.map((doc) => (
+    
+    <tr key={doc.id} className="border-b">
           
+      {/* NAME */}
+      <td className="p-2 font-medium">
+        {doc.username}
+      </td>
 
-         
-            <td className="p-2">
-              <span
-                className={
-                  doc.status === "approved"
-                    ? "text-green-600 font-semibold"
-                    : doc.status === "rejected"
-                    ? "text-red-600 font-semibold"
-                    : "text-yellow-600 font-semibold"
-                }
-              >
-                {doc.status || "pending"}
-              </span>
-            </td>
+      {/* EMAIL */}
+      <td className="p-2">
+        {doc.email}
+      </td>
 
-            {/* ACTIONS */}
-                   <div className="flex gap-3 mt-2">
-  <button
-    onClick={() => updateDoctorStatus(doc.id, "approved")}
-    className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md text-sm font-semibold transition duration-200"
-  >
-    Approve
-  </button>
+      {/* STATUS */}
+      <td className="p-2">
+        <span
+          className={
+            doc.status === "approved"
+              ? "text-green-600 font-semibold"
+              : doc.status === "rejected"
+              ? "text-red-600 font-semibold"
+              : "text-yellow-600 font-semibold"
+          }
+        >
+          {doc.status || "pending"}
+        </span>
+      </td>
 
-  <button
-    onClick={() => updateDoctorStatus(doc.id, "rejected")}
-    className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md text-sm font-semibold transition duration-200"
-  >
-    Reject
-  </button>
-</div>
+      {/* ACTIONS */}
+      <td className="p-2">
+        <div className="flex gap-2">
 
-          </tr>
-        ))}
-      </tbody>
+          <button
+            onClick={() => updateDoctorStatus(doc.id, "approved")}
+            className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-xs font-semibold"
+          >
+            Approve
+          </button>
+
+          <button
+            onClick={() => updateDoctorStatus(doc.id, "rejected")}
+            className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-xs font-semibold"
+          >
+            Reject
+          </button>
+
+        </div>
+      </td>
+
+    </tr>
+  ))}
+</tbody>
 
     </table>
 

@@ -39,8 +39,8 @@ const Header = () => {
                   <Link to="/patients" className="px-1 pt-1 text-sm text-gray-600 hover:text-blue-600">
                     Patients
                   </Link>
-                  <Link to="/appointments" className="px-1 pt-1 text-sm text-gray-600 hover:text-blue-600">
-                    Appointments
+                  <Link to="/AdminDoctorManagement" className="px-1 pt-1 text-sm text-gray-600 hover:text-blue-600">
+                    Admin Dashboard
                   </Link>
                 </>
               )}
@@ -89,7 +89,7 @@ const Header = () => {
             Contact
           </Link>
 
-          {isLoggedIn && (
+          {/* {isLoggedIn && (
             <>
               <Link to="/doctors" className="block py-2" onClick={() => setMenuOpen(false)}>
                 Doctors
@@ -101,7 +101,7 @@ const Header = () => {
                 Appointments
               </Link>
             </>
-          )}
+          )} */}
 
           {/* Auth Mobile */}
           {!isLoggedIn ? (
